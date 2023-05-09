@@ -49,6 +49,10 @@ public class Delivery {
     public static void deliveryStart(OrderPlaced orderPlaced) {
         /** Example 1:  new item 
         Delivery delivery = new Delivery();
+        delivery.setOrderId(orderPlaced.getId());
+        delivery.setOrderId(orderPlaced.getId());
+        delivery.setOrderId(orderPlaced.getId());
+        delivery.setOrderId(orderPlaced.getId());
         repository().save(delivery);
 
         DeliveryStarted deliveryStarted = new DeliveryStarted(delivery);
@@ -79,18 +83,18 @@ public class Delivery {
         deliveryCancelled.publishAfterCommit();
         */
 
-        /** Example 2:  finding and process
+        /** Example 2:  finding and process*/
         
-        repository().findById(orderCancelled.get???()).ifPresent(delivery->{
+        repository().findByOrderId(orderCancelled.getId()).ifPresent(delivery->{
             
-            delivery // do something
+            delivery.setStatus("DeliveryCancelled"); // do something
             repository().save(delivery);
 
             DeliveryCancelled deliveryCancelled = new DeliveryCancelled(delivery);
             deliveryCancelled.publishAfterCommit();
 
          });
-        */
+        
 
     }
 }

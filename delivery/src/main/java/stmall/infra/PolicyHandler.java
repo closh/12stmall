@@ -35,7 +35,7 @@ public class PolicyHandler {
         );
 
         // Comments //
-        //1. CJ Loigs send payload
+        // 1. CJ Loigs send payload
         // 2. SNS to Customer
         // 3. Keeping to our DB
 

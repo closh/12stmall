@@ -69,20 +69,20 @@ public class Order {
     public static void updateStatus(DeliveryCancelled deliveryCancelled) {
         /** Example 1:  new item 
         Order order = new Order();
+        order.setProductId(deliveryCancelled.getProductId());
         repository().save(order);
 
         */
 
-        /** Example 2:  finding and process
+        /** Example 2:  finding and process*/
         
-        repository().findById(deliveryCancelled.get???()).ifPresent(order->{
+        repository().findByOrderId(deliveryCancelled.getId()).ifPresent(order->{
             
-            order // do something
+            order.setStatus(deliveryCancelled.getStatus()); // do something
             repository().save(order);
 
-
          });
-        */
+        
 
     }
 
