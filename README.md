@@ -35,15 +35,15 @@ mvn spring-boot:run
 ## Test by API
 - order
 ```
- http :8088/orders id="id" productName="productName" productId="productId" userId="userId" qty="qty" status="status" 
+ http :8081/orders id="id" productName="productName" productId="productId" userId="userId" qty="qty" status="status" 
 ```
 - delivery
 ```
- http :8088/deliveries id="id" orderId="orderId" productId="productId" productName="productName" qty="qty" status="status" 
+ http :8081/deliveries id="id" orderId="orderId" productId="productId" productName="productName" qty="qty" status="status" 
 ```
 - product
 ```
- http :8088/inventories id="id" productName="productName" stock="stock" 
+ http :8081/inventories id="id" productName="productName" stock="stock" 
 ```
 - customercenter
 ```
@@ -58,7 +58,7 @@ npm run serve
 ```
 
 ## Test by UI
-Open a browser to localhost:8088
+Open a browser to localhost:8081
 
 ## Required Utilities
 
