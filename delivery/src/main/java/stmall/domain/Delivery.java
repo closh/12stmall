@@ -18,13 +18,9 @@ public class Delivery {
     private Long id;
 
     private Long orderId;
-
     private Long productId;
-
     private String productName;
-
     private Integer qty;
-
     private String status;
 
     @PostPersist
@@ -35,8 +31,6 @@ public class Delivery {
 
     @PostUpdate
     public void onPostUpdate() {
-        DeliveryCancelled deliveryCancelled = new DeliveryCancelled(this);
-        deliveryCancelled.publishAfterCommit();
     }
 
     public static DeliveryRepository repository() {
@@ -47,47 +41,21 @@ public class Delivery {
     }
 
     public static void deliveryStart(OrderPlaced orderPlaced) {
-        /** Example 1:  new item 
         Delivery delivery = new Delivery();
         delivery.setOrderId(orderPlaced.getId());
-        delivery.setOrderId(orderPlaced.getId());
-        delivery.setOrderId(orderPlaced.getId());
-        delivery.setOrderId(orderPlaced.getId());
+        delivery.setProductId(orderPlaced.getProductId());
+        delivery.setProductName(orderPlaced.getProductName());
+        delivery.setQty(orderPlaced.getQty());
+        delivery.setStatus("DeliveryStarted");
+
         repository().save(delivery);
-
-        DeliveryStarted deliveryStarted = new DeliveryStarted(delivery);
-        deliveryStarted.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
-        
-        repository().findById(orderPlaced.get???()).ifPresent(delivery->{
-            
-            delivery // do something
-            repository().save(delivery);
-
-            DeliveryStarted deliveryStarted = new DeliveryStarted(delivery);
-            deliveryStarted.publishAfterCommit();
-
-         });
-        */
 
     }
 
     public static void deliveryCancel(OrderCancelled orderCancelled) {
-        /** Example 1:  new item 
-        Delivery delivery = new Delivery();
-        repository().save(delivery);
-
-        DeliveryCancelled deliveryCancelled = new DeliveryCancelled(delivery);
-        deliveryCancelled.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process*/
-        
         repository().findByOrderId(orderCancelled.getId()).ifPresent(delivery->{
             
-            delivery.setStatus("DeliveryCancelled"); // do something
+            delivery.setStatus("DeliveryCancelled");
             repository().save(delivery);
 
             DeliveryCancelled deliveryCancelled = new DeliveryCancelled(delivery);

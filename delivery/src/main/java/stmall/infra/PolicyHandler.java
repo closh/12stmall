@@ -22,40 +22,15 @@ public class PolicyHandler {
     @StreamListener(KafkaProcessor.INPUT)
     public void whatever(@Payload String eventString) {}
 
-    @StreamListener(
-        value = KafkaProcessor.INPUT,
-        condition = "headers['type']=='OrderPlaced'"
-    )
-    public void wheneverOrderPlaced_DeliveryStart(
-        @Payload OrderPlaced orderPlaced
-    ) {
+    @StreamListener(value = KafkaProcessor.INPUT,condition = "headers['type']=='OrderPlaced'")
+    public void wheneverOrderPlaced_DeliveryStart(@Payload OrderPlaced orderPlaced) {
         OrderPlaced event = orderPlaced;
-        System.out.println(
-            "\n\n##### listener DeliveryStart : " + orderPlaced + "\n\n"
-        );
-
-        // Comments //
-        // 1. CJ Loigs send payload
-        // 2. SNS to Customer
-        // 3. Keeping to our DB
-
-        // Sample Logic //
         Delivery.deliveryStart(event);
     }
 
-    @StreamListener(
-        value = KafkaProcessor.INPUT,
-        condition = "headers['type']=='OrderCancelled'"
-    )
-    public void wheneverOrderCancelled_DeliveryCancel(
-        @Payload OrderCancelled orderCancelled
-    ) {
+    @StreamListener(value = KafkaProcessor.INPUT,condition = "headers['type']=='OrderCancelled'")
+    public void wheneverOrderCancelled_DeliveryCancel(@Payload OrderCancelled orderCancelled) {
         OrderCancelled event = orderCancelled;
-        System.out.println(
-            "\n\n##### listener DeliveryCancel : " + orderCancelled + "\n\n"
-        );
-
-        // Sample Logic //
         Delivery.deliveryCancel(event);
     }
 }

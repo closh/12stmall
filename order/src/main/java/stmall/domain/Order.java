@@ -14,17 +14,12 @@ import stmall.domain.OrderPlaced;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO) //   test
     private Long id;
-
     private String productName;
-
     private Long productId;
-
     private Long userId;
-
     private Integer qty;
-
     private String status;
 
     @PostPersist
@@ -70,19 +65,21 @@ public class Order {
         /** Example 1:  new item 
         Order order = new Order();
         order.setProductId(deliveryCancelled.getProductId());
+        order.setProductName(deliveryCancelled.getProductName());
         repository().save(order);
 
         */
 
-        /** Example 2:  finding and process*/
+        /** Example 2:  finding and process */
         
-        repository().findByOrderId(deliveryCancelled.getId()).ifPresent(order->{
+        repository().findById(deliveryCancelled.getOrderId()).ifPresent(order->{
             
-            order.setStatus(deliveryCancelled.getStatus()); // do something
+            order.setStatus(deliveryCancelled.getStatus());
             repository().save(order);
 
+
          });
-        
+       
 
     }
 

@@ -16,18 +16,16 @@ public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String productName;
-
     private Integer stock;
 
     @PostUpdate
     public void onPostUpdate() {
-        StockDecreased stockDecreased = new StockDecreased(this);
-        stockDecreased.publishAfterCommit();
+        // StockDecreased stockDecreased = new StockDecreased(this);
+        // stockDecreased.publishAfterCommit();
 
-        StockIncreased stockIncreased = new StockIncreased(this);
-        stockIncreased.publishAfterCommit();
+        // StockIncreased stockIncreased = new StockIncreased(this);
+        // stockIncreased.publishAfterCommit();
     }
 
     public static InventoryRepository repository() {
@@ -38,50 +36,25 @@ public class Inventory {
     }
 
     public static void stockDecrease(DeliveryStarted deliveryStarted) {
-        /** Example 1:  new item 
-        Inventory inventory = new Inventory();
-        repository().save(inventory);
-
-        StockDecreased stockDecreased = new StockDecreased(inventory);
-        stockDecreased.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
-        
-        repository().findById(deliveryStarted.get???()).ifPresent(inventory->{
-            
-            inventory // do something
+              
+        repository().findById(deliveryStarted.getProductId()).ifPresent(inventory->{
+            inventory.setStock(inventory.getStock() - deliveryStarted.getQty());
             repository().save(inventory);
 
             StockDecreased stockDecreased = new StockDecreased(inventory);
             stockDecreased.publishAfterCommit();
-
          });
-        */
 
     }
 
     public static void stockIncrease(DeliveryCancelled deliveryCancelled) {
-        /** Example 1:  new item 
-        Inventory inventory = new Inventory();
-        repository().save(inventory);
-
-        StockIncreased stockIncreased = new StockIncreased(inventory);
-        stockIncreased.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
-        
-        repository().findById(deliveryCancelled.get???()).ifPresent(inventory->{
-            
-            inventory // do something
+        repository().findById(deliveryCancelled.getProductId()).ifPresent(inventory->{
+            inventory.setStock(inventory.getStock() + deliveryCancelled.getQty());
             repository().save(inventory);
 
             StockIncreased stockIncreased = new StockIncreased(inventory);
             stockIncreased.publishAfterCommit();
-
          });
-        */
 
     }
 }
